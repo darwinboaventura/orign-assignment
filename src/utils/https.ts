@@ -1,4 +1,4 @@
-export const get = <T>(url: string, data: any = null) => request<T>(url, data, null, "GET")
+export const get = <T>(url: string, data: any = null, bearer: string = null) => request<T>(url, data, bearer, "GET")
 export const post = <T>(url: string, data: any) => request<T>(url, data, null, "POST")
 export const put = <T>(url: string, data: any) => request<T>(url, data, null, "PUT")
 
@@ -43,7 +43,7 @@ export const request = <T>(url: string, data: any = null, bearer: string = null,
 
         if (method === "GET" && data) url += formatParams(data)
         client.open(method, url, true)
-        if (bearer) client.setRequestHeader("Authorization", "Bearer " + bearer)
+        if (bearer) client.setRequestHeader("X-Mashape-Key", bearer)
 
         if (method !== "GET" && data) {
             client.setRequestHeader("Content-Type", "application/json; charset=utf-8")

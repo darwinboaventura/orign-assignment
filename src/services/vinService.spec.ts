@@ -46,6 +46,70 @@ describe("Vin Service", () => {
             }))
     })
 
+    describe("Darwin:Response converter", () => {
+        it("should return empty object", () => {
+            expect(convert({ Results: [] })).toEqual({})
+        })
+
+        it("should return Joaquim from make property", () => {
+            expect(
+                convert({ Results: [{ Value: "Joaquim", ValueId: null, Variable: "make", VariableId: null }] }).make
+            ).toEqual("Joaquim")
+        })
+
+        it("should return Race from vechicleType property", () => {
+            expect(
+                convert({ Results: [{ Value: "Race", ValueId: null, Variable: "vechicleType", VariableId: null }] })
+                    .vechicleType
+            ).toEqual("Race")
+        })
+
+        it("should return an CarInfo object", () => {
+            expect(
+                convert({
+                    Results: [
+                        {
+                            Value: "Ford",
+                            ValueId: null,
+                            Variable: "make",
+                            VariableId: null
+                        },
+                        {
+                            Value: "KA",
+                            ValueId: null,
+                            Variable: "model",
+                            VariableId: null
+                        },
+                        {
+                            Value: "2018",
+                            ValueId: null,
+                            Variable: "year",
+                            VariableId: null
+                        },
+                        {
+                            Value: "LX",
+                            ValueId: null,
+                            Variable: "trim",
+                            VariableId: null
+                        },
+                        {
+                            Value: "SUV",
+                            ValueId: null,
+                            Variable: "vechicleType",
+                            VariableId: null
+                        }
+                    ]
+                })
+            ).toEqual({
+                make: "Ford",
+                model: "KA",
+                year: "2018",
+                trim: "LX",
+                vechicleType: "SUV"
+            })
+        })
+    })
+
     describe("Vin string filter", () => {
         it("uppercases given string", () => expect(filter("abc")).toEqual("ABC"))
         it("disallows IOQ", () => expect(filter("IOQabc")).toEqual("ABC"))
