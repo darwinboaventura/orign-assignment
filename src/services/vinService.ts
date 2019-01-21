@@ -10,7 +10,7 @@ export const filter = (vin: string) => {
 }
 
 export const validate = (_vin: string): string => {
-    if (_vin && _vin.length == 17) {
+    if (_vin && _vin.length === 17) {
         return null
     }
 
