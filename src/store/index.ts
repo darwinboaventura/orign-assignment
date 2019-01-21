@@ -55,8 +55,6 @@ export const reducer: LoopReducer<RootState, Actions> = (state, action: Actions)
         case checkVinSuccess:
             return ext({ vinCheckResult: action.payload })
         case checkVinFail:
-            console.log("Error:", action.payload)
-
             return ext({ vinCheckResult: null })
         default:
             return state
